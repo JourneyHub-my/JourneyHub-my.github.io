@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JourneyHub - Premium Travel Expert in Malaysia</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lipis/flag-icons@6.11.0/css/flag-icons.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            500: '#0ea5e9',
+                            600: '#0284c7',
+                            900: '#0c4a6e',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .hero-bg {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('images/hero-bg.jpg');
+            background-size: cover;
+            background-position: center;
+        }
+    </style>
+</head>
+<body class="font-sans text-gray-800 antialiased">
+
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg fixed w-full z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-20">
+                <div class="flex items-center">
+                    <a href="#" class="flex-shrink-0 flex items-center">
+                        <span class="text-3xl font-bold text-brand-600">JourneyHub</span>
+                    </a>
+                </div>
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#home" class="text-gray-600 hover:text-brand-600 px-3 py-2 rounded-md text-sm font-medium transition" data-i18n="nav_home">Home</a>
+                    <a href="#services" class="text-gray-600 hover:text-brand-600 px-3 py-2 rounded-md text-sm font-medium transition" data-i18n="nav_services">Core Services</a>
+                    <a href="#about" class="text-gray-600 hover:text-brand-600 px-3 py-2 rounded-md text-sm font-medium transition" data-i18n="nav_about">About Us</a>
+                    <a href="#contact" class="bg-brand-600 text-white hover:bg-brand-700 px-4 py-2 rounded-md text-sm font-medium transition" data-i18n="nav_contact">Contact Us</a>
+                    
+                    <!-- Language Switcher -->
+                    <div class="relative inline-block text-left group">
+                        <button type="button" class="inline-flex items-center justify-center w-full rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none">
+                            <span id="current-lang-icon" class="fi fi-us text-xl"></span>
+                        </button>
+                        <div class="origin-top-right absolute right-0 w-40 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 hidden group-hover:block z-50">
+                            <div class="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
+                                <a href="javascript:void(0)" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 flex items-center" role="menuitem" onclick="changeLanguage('en')">
+                                    <span class="fi fi-us mr-2"></span> English
+                                </a>
+                                <a href="javascript:void(0)" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 flex items-center" role="menuitem" onclick="changeLanguage('ms')">
+                                    <span class="fi fi-my mr-2"></span> Bahasa Melayu
+                                </a>
+                                <a href="javascript:void(0)" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 flex items-center" role="menuitem" onclick="changeLanguage('zh')">
+                                    <span class="fi fi-cn mr-2"></span> 中文
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Mobile menu button -->
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-btn" class="text-gray-600 hover:text-gray-900 focus:outline-none">
+                        <i class="fas fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="#home" class="block text-gray-600 hover:text-brand-600 px-3 py-2 rounded-md text-base font-medium" data-i18n="nav_home">Home</a>
+                <a href="#services" class="block text-gray-600 hover:text-brand-600 px-3 py-2 rounded-md text-base font-medium" data-i18n="nav_services">Core Services</a>
+                <a href="#about" class="block text-gray-600 hover:text-brand-600 px-3 py-2 rounded-md text-base font-medium" data-i18n="nav_about">About Us</a>
+                <a href="#contact" class="block text-brand-600 font-bold px-3 py-2 rounded-md text-base" data-i18n="nav_contact">Contact Us</a>
+                <div class="border-t border-gray-200 pt-4 pb-3">
+                    <div class="flex items-center px-5">
+                        <div class="flex-shrink-0">
+                            <i class="fas fa-globe text-gray-600 text-lg"></i>
+                        </div>
+                        <div class="ml-3">
+                            <div class="text-base font-medium leading-none text-gray-600" data-i18n="select_language">Select Language</div>
+                        </div>
+                    </div>
+                    <div class="mt-3 px-2 space-y-1">
+                        <a href="javascript:void(0)" class="block px-3 py-2 rounded-md text-base font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-50 flex items-center" onclick="changeLanguage('en')">
+                            <span class="fi fi-us mr-3"></span> English
+                        </a>
+                        <a href="javascript:void(0)" class="block px-3 py-2 rounded-md text-base font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-50 flex items-center" onclick="changeLanguage('ms')">
+                            <span class="fi fi-my mr-3"></span> Bahasa Melayu
+                        </a>
+                        <a href="javascript:void(0)" class="block px-3 py-2 rounded-md text-base font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-50 flex items-center" onclick="changeLanguage('zh')">
+                            <span class="fi fi-cn mr-3"></span> 中文
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero-bg h-screen flex items-center justify-center text-center text-white pt-20">
+        <div class="max-w-4xl px-4">
+            <h1 class="text-4xl md:text-6xl font-bold mb-6 leading-tight">
+                <span data-i18n="hero_title_prefix">Discover the</span> <span class="text-brand-500" data-i18n="hero_title_highlight">Ultimate Beauty</span> <span data-i18n="hero_title_suffix"></span>
+            </h1>
+            <p class="text-xl md:text-2xl mb-10 text-gray-200" data-i18n="hero_subtitle">
+                Premium customized travel services tailored for visitors, ensuring a worry-free experience from landing to departure.
+            </p>
+            <div class="flex flex-col md:flex-row justify-center gap-4">
+                <a href="#contact" class="bg-brand-600 hover:bg-brand-700 text-white font-bold py-3 px-8 rounded-full transition duration-300 transform hover:scale-105" data-i18n="hero_cta_primary">
+                    Customize Now
+                </a>
+                <a href="#services" class="bg-transparent border-2 border-white hover:bg-white hover:text-brand-900 text-white font-bold py-3 px-8 rounded-full transition duration-300" data-i18n="hero_cta_secondary">
+                    Our Services
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features / Value Proposition -->
+    <section class="py-16 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+                <div class="p-6">
+                    <div class="w-16 h-16 bg-brand-100 rounded-full flex items-center justify-center mx-auto mb-4 text-brand-600">
+                        <i class="fas fa-language text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2" data-i18n="feature_1_title">Language Barrier Free</h3>
+                    <p class="text-gray-600" data-i18n="feature_1_desc">Professional multilingual guides and service teams to eliminate communication barriers.</p>
+                </div>
+                <div class="p-6">
+                    <div class="w-16 h-16 bg-brand-100 rounded-full flex items-center justify-center mx-auto mb-4 text-brand-600">
+                        <i class="fas fa-gem text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2" data-i18n="feature_2_title">Premium Customization</h3>
+                    <p class="text-gray-600" data-i18n="feature_2_desc">From family trips to business visits, we create unique itineraries tailored just for you.</p>
+                </div>
+                <div class="p-6">
+                    <div class="w-16 h-16 bg-brand-100 rounded-full flex items-center justify-center mx-auto mb-4 text-brand-600">
+                        <i class="fas fa-shield-alt text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2" data-i18n="feature_3_title">Worry-Free Journey</h3>
+                    <p class="text-gray-600" data-i18n="feature_3_desc">One-stop service loop from airport pickup to hotel check-in, ensuring safety and comfort.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Core Services -->
+    <section id="services" class="py-20 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4" data-i18n="services_title">Core Business Areas</h2>
+                <p class="text-xl text-gray-600 max-w-2xl mx-auto" data-i18n="services_subtitle">We provide comprehensive travel packages to meet all your imagination of high-quality travel.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Service 1 -->
+                <div class="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-xl transition duration-300 group">
+                    <div class="h-48 bg-gray-200 overflow-hidden relative">
+                        <img src="images/service-custom.jpg" alt="Premium Customization" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                        <div class="absolute inset-0 bg-black bg-opacity-20 group-hover:bg-opacity-10 transition"></div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-3 text-gray-900" data-i18n="service_1_title">Premium Travel Customization</h3>
+                        <p class="text-gray-600 text-sm mb-4" data-i18n="service_1_desc">Covering family trips, honeymoons, and in-depth cultural experiences with flexible arrangements.</p>
+                        <ul class="text-sm text-gray-500 space-y-1">
+                            <li><i class="fas fa-check text-brand-500 mr-2"></i><span data-i18n="service_1_point_1">Family Trips</span></li>
+                            <li><i class="fas fa-check text-brand-500 mr-2"></i><span data-i18n="service_1_point_2">Honeymoon Vacations</span></li>
+                            <li><i class="fas fa-check text-brand-500 mr-2"></i><span data-i18n="service_1_point_3">Cultural Experiences</span></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Service 2 -->
+                <div class="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-xl transition duration-300 group">
+                    <div class="h-48 bg-gray-200 overflow-hidden relative">
+                        <img src="images/service-car.jpg" alt="Airport Transfer" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                         <div class="absolute inset-0 bg-black bg-opacity-20 group-hover:bg-opacity-10 transition"></div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-3 text-gray-900" data-i18n="service_2_title">Airport Shuttle & Car Service</h3>
+                        <p class="text-gray-600 text-sm mb-4" data-i18n="service_2_desc">Covering major airports in Malaysia, professional drivers, comfortable vehicles, punctual and safe.</p>
+                         <ul class="text-sm text-gray-500 space-y-1">
+                            <li><i class="fas fa-check text-brand-500 mr-2"></i><span data-i18n="service_2_point_1">Professional Drivers</span></li>
+                            <li><i class="fas fa-check text-brand-500 mr-2"></i><span data-i18n="service_2_point_2">Safe & Comfortable</span></li>
+                            <li><i class="fas fa-check text-brand-500 mr-2"></i><span data-i18n="service_2_point_3">Punctual Service</span></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Service 3 -->
+                <div class="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-xl transition duration-300 group">
+                    <div class="h-48 bg-gray-200 overflow-hidden relative">
+                        <img src="images/service-guide.jpg" alt="Tour Guide" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                         <div class="absolute inset-0 bg-black bg-opacity-20 group-hover:bg-opacity-10 transition"></div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-3 text-gray-900" data-i18n="service_3_title">Tour Guides & Escorts</h3>
+                        <p class="text-gray-600 text-sm mb-4" data-i18n="service_3_desc">Local professional guides providing in-depth historical and cultural explanations and attentive escort services.</p>
+                         <ul class="text-sm text-gray-500 space-y-1">
+                            <li><i class="fas fa-check text-brand-500 mr-2"></i><span data-i18n="service_3_point_1">Professional Guides</span></li>
+                            <li><i class="fas fa-check text-brand-500 mr-2"></i><span data-i18n="service_3_point_2">Historical Insight</span></li>
+                            <li><i class="fas fa-check text-brand-500 mr-2"></i><span data-i18n="service_3_point_3">Attentive Escort</span></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Service 4 -->
+                <div class="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-xl transition duration-300 group">
+                    <div class="h-48 bg-gray-200 overflow-hidden relative">
+                        <img src="images/service-business.jpg" alt="Business Services" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                         <div class="absolute inset-0 bg-black bg-opacity-20 group-hover:bg-opacity-10 transition"></div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-3 text-gray-900" data-i18n="service_4_title">Corporate & Group Services</h3>
+                        <p class="text-gray-600 text-sm mb-4" data-i18n="service_4_desc">Hosting corporate delegations, business visits, and small high-end groups with one-stop reception solutions.</p>
+                         <ul class="text-sm text-gray-500 space-y-1">
+                            <li><i class="fas fa-check text-brand-500 mr-2"></i><span data-i18n="service_4_point_1">Business Visits</span></li>
+                            <li><i class="fas fa-check text-brand-500 mr-2"></i><span data-i18n="service_4_point_2">Team Building</span></li>
+                            <li><i class="fas fa-check text-brand-500 mr-2"></i><span data-i18n="service_4_point_3">One-stop Service</span></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Us Section -->
+    <section id="about" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="lg:flex items-center gap-16">
+                <div class="lg:w-1/2 mb-10 lg:mb-0">
+                    <img src="images/about-us.jpg" alt="About JourneyHub" class="rounded-2xl shadow-2xl">
+                </div>
+                <div class="lg:w-1/2">
+                    <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6" data-i18n="about_title">About JourneyHub</h2>
+                    <p class="text-lg text-gray-600 mb-6 leading-relaxed" data-i18n="about_desc_1">
+                        Headquartered in Kuala Lumpur, Malaysia, JourneyHub is a professional agency dedicated to providing high-end customized travel services. We understand the travel habits and service needs of visitors, striving to solve language barriers and itinerary coordination challenges.
+                    </p>
+                    <p class="text-lg text-gray-600 mb-8 leading-relaxed" data-i18n="about_desc_2">
+                        Our team consists of experienced local experts, striving for perfection in every aspect from product planning to customer service. Through social media platforms like TikTok and Xiaohongshu, we connect directly with customers to showcase authentic travel cases and local Malaysian experiences.
+                    </p>
+                    <div class="grid grid-cols-2 gap-6">
+                        <div class="border-l-4 border-brand-500 pl-4">
+                            <p class="font-bold text-gray-900 text-lg" data-i18n="about_hq">HQ Location</p>
+                            <p class="text-gray-600" data-i18n="about_hq_val">KL City Centre</p>
+                        </div>
+                        <div class="border-l-4 border-brand-500 pl-4">
+                            <p class="font-bold text-gray-900 text-lg" data-i18n="about_promise">Service Promise</p>
+                            <p class="text-gray-600" data-i18n="about_promise_val">24/7 Support</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action -->
+    <section class="py-20 bg-brand-900 text-white text-center">
+        <div class="max-w-4xl mx-auto px-4">
+            <h2 class="text-3xl md:text-4xl font-bold mb-6" data-i18n="cta_title">Ready to Start Your Malaysian Journey?</h2>
+            <p class="text-xl text-brand-100 mb-10" data-i18n="cta_desc">Let us plan an unforgettable high-end customized trip for you to experience the unique Nanyang charm.</p>
+            <a href="#contact" class="bg-white text-brand-900 hover:bg-brand-50 font-bold py-4 px-10 rounded-full text-lg transition duration-300 inline-block" data-i18n="cta_button">
+                Contact Us Now
+            </a>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4" data-i18n="contact_title">Contact Us</h2>
+                <p class="text-xl text-gray-600" data-i18n="contact_subtitle">Whether you have any questions or needs, please feel free to contact us.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                <!-- Contact Info -->
+                <div class="bg-white p-8 rounded-xl shadow-md">
+                    <h3 class="text-2xl font-bold mb-6 text-gray-900" data-i18n="contact_info_title">Contact Information</h3>
+                    <div class="space-y-6">
+                        <div class="flex items-start">
+                            <div class="text-brand-600 mt-1 mr-4">
+                                <i class="fas fa-map-marker-alt text-2xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-gray-900" data-i18n="contact_address_label">Address</h4>
+                                <p class="text-gray-600 mt-1">
+                                    32-2, BINJAI 8, SERVICE SUITE,<br>
+                                    NO 2, LORONG BINJAI,<br>
+                                    50450, KUALA LUMPUR.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="text-brand-600 mt-1 mr-4">
+                                <i class="fas fa-phone text-2xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-gray-900" data-i18n="contact_phone_label">Phone</h4>
+                                <p class="text-gray-600 mt-1">+60177970086</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="text-brand-600 mt-1 mr-4">
+                                <i class="fas fa-envelope text-2xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-gray-900" data-i18n="contact_email_label">Email</h4>
+                                <p class="text-gray-600 mt-1">journey.hubma@gmail.com</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="text-brand-600 mt-1 mr-4">
+                                <i class="fas fa-share-alt text-2xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-gray-900" data-i18n="contact_social_label">Follow Us</h4>
+                                <div class="flex space-x-4 mt-2">
+                                    <a href="#" class="text-gray-400 hover:text-black transition"><i class="fab fa-tiktok text-2xl"></i></a>
+                                    <a href="#" class="text-gray-400 hover:text-red-500 transition"><span class="font-bold text-lg">小红书</span></a>
+                                    <a href="#" class="text-gray-400 hover:text-blue-600 transition"><i class="fab fa-facebook text-2xl"></i></a>
+                                    <a href="#" class="text-gray-400 hover:text-pink-600 transition"><i class="fab fa-instagram text-2xl"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Contact Form -->
+                <div class="bg-white p-8 rounded-xl shadow-md">
+                    <form>
+                        <div class="mb-6">
+                            <label for="name" class="block text-gray-700 font-bold mb-2" data-i18n="form_name_label">Your Name</label>
+                            <input type="text" id="name" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500 transition" placeholder="Enter your name">
+                        </div>
+                        <div class="mb-6">
+                            <label for="email" class="block text-gray-700 font-bold mb-2" data-i18n="form_contact_label">Email / WeChat</label>
+                            <input type="text" id="email" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500 transition" placeholder="Enter your email or WeChat ID">
+                        </div>
+                        <div class="mb-6">
+                            <label for="message" class="block text-gray-700 font-bold mb-2" data-i18n="form_message_label">Message</label>
+                            <textarea id="message" rows="4" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500 transition" placeholder="Tell us about your travel plans..."></textarea>
+                        </div>
+                        <button type="submit" class="w-full bg-brand-600 text-white font-bold py-3 px-4 rounded-lg hover:bg-brand-700 transition duration-300" data-i18n="form_submit">
+                            Send Inquiry
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+                <div class="col-span-1 md:col-span-2">
+                    <span class="text-2xl font-bold text-white mb-4 block">JourneyHub</span>
+                    <p class="text-gray-400 max-w-sm" data-i18n="footer_desc">
+                        Your expert in Malaysian high-end travel customization. We are dedicated to providing you with safe, comfortable, and unforgettable travel experiences.
+                    </p>
+                </div>
+                <div>
+                    <h4 class="text-lg font-bold mb-4" data-i18n="footer_links">Quick Links</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="#home" class="hover:text-white transition" data-i18n="nav_home">Home</a></li>
+                        <li><a href="#services" class="hover:text-white transition" data-i18n="nav_services">Core Services</a></li>
+                        <li><a href="#about" class="hover:text-white transition" data-i18n="nav_about">About Us</a></li>
+                        <li><a href="#contact" class="hover:text-white transition" data-i18n="nav_contact">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-lg font-bold mb-4" data-i18n="footer_business">Business Scope</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li data-i18n="footer_biz_1">Premium Customization</li>
+                        <li data-i18n="footer_biz_2">Airport Transfers</li>
+                        <li data-i18n="footer_biz_3">Business Visits</li>
+                        <li data-i18n="footer_biz_4">Tour Guide Escort</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 pt-8 text-center text-gray-500 text-sm">
+                <p>&copy; 2026 JourneyHub. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- WhatsApp Floating Button -->
+    <a href="https://wa.me/60177970086" target="_blank" class="fixed bottom-6 right-6 z-50 bg-[#25D366] hover:bg-[#128C7E] text-white rounded-full p-4 shadow-lg transition duration-300 transform hover:scale-110 flex items-center justify-center w-16 h-16" aria-label="Contact us on WhatsApp">
+        <i class="fab fa-whatsapp text-4xl"></i>
+    </a>
+
+    <!-- Scripts -->
+    <script>
+        // Translations
+        const translations = {
+            en: {
+                nav_home: "Home",
+                nav_services: "Core Services",
+                nav_about: "About Us",
+                nav_contact: "Contact Us",
+                select_language: "Select Language",
+                hero_title_prefix: "Discover the",
+                hero_title_highlight: "Ultimate Beauty",
+                hero_title_suffix: "of Malaysia",
+                hero_subtitle: "Premium customized travel services tailored for visitors, ensuring a worry-free experience from landing to departure.",
+                hero_cta_primary: "Customize Now",
+                hero_cta_secondary: "Our Services",
+                feature_1_title: "Language Barrier Free",
+                feature_1_desc: "Professional multilingual guides and service teams to eliminate communication barriers.",
+                feature_2_title: "Premium Customization",
+                feature_2_desc: "From family trips to business visits, we create unique itineraries tailored just for you.",
+                feature_3_title: "Worry-Free Journey",
+                feature_3_desc: "One-stop service loop from airport pickup to hotel check-in, ensuring safety and comfort.",
+                services_title: "Core Business Areas",
+                services_subtitle: "We provide comprehensive travel packages to meet all your imagination of high-quality travel.",
+                service_1_title: "Premium Travel Customization",
+                service_1_desc: "Covering family trips, honeymoons, and in-depth cultural experiences with flexible arrangements.",
+                service_1_point_1: "Family Trips",
+                service_1_point_2: "Honeymoon Vacations",
+                service_1_point_3: "Cultural Experiences",
+                service_2_title: "Airport Shuttle & Car Service",
+                service_2_desc: "Covering major airports in Malaysia, professional drivers, comfortable vehicles, punctual and safe.",
+                service_2_point_1: "Professional Drivers",
+                service_2_point_2: "Safe & Comfortable",
+                service_2_point_3: "Punctual Service",
+                service_3_title: "Tour Guides & Escorts",
+                service_3_desc: "Local professional guides providing in-depth historical and cultural explanations and attentive escort services.",
+                service_3_point_1: "Professional Guides",
+                service_3_point_2: "Historical Insight",
+                service_3_point_3: "Attentive Escort",
+                service_4_title: "Corporate & Group Services",
+                service_4_desc: "Hosting corporate delegations, business visits, and small high-end groups with one-stop reception solutions.",
+                service_4_point_1: "Business Visits",
+                service_4_point_2: "Team Building",
+                service_4_point_3: "One-stop Service",
+                about_title: "About JourneyHub",
+                about_desc_1: "Headquartered in Kuala Lumpur, Malaysia, JourneyHub is a professional agency dedicated to providing high-end customized travel services. We understand the travel habits and service needs of visitors, striving to solve language barriers and itinerary coordination challenges.",
+                about_desc_2: "Our team consists of experienced local experts, striving for perfection in every aspect from product planning to customer service. Through social media platforms like TikTok and Xiaohongshu, we connect directly with customers to showcase authentic travel cases and local Malaysian experiences.",
+                about_hq: "HQ Location",
+                about_hq_val: "KL City Centre",
+                about_promise: "Service Promise",
+                about_promise_val: "24/7 Support",
+                cta_title: "Ready to Start Your Malaysian Journey?",
+                cta_desc: "Let us plan an unforgettable high-end customized trip for you to experience the unique Nanyang charm.",
+                cta_button: "Contact Us Now",
+                contact_title: "Contact Us",
+                contact_subtitle: "Whether you have any questions or needs, please feel free to contact us.",
+                contact_info_title: "Contact Information",
+                contact_address_label: "Address",
+                contact_phone_label: "Phone",
+                contact_email_label: "Email",
+                contact_social_label: "Follow Us",
+                form_name_label: "Your Name",
+                form_contact_label: "Email / WeChat",
+                form_message_label: "Message",
+                form_submit: "Send Inquiry",
+                footer_desc: "Your expert in Malaysian high-end travel customization. We are dedicated to providing you with safe, comfortable, and unforgettable travel experiences.",
+                footer_links: "Quick Links",
+                footer_business: "Business Scope",
+                footer_biz_1: "Premium Customization",
+                footer_biz_2: "Airport Transfers",
+                footer_biz_3: "Business Visits",
+                footer_biz_4: "Tour Guide Escort"
+            },
+            ms: {
+                nav_home: "Laman Utama",
+                nav_services: "Perkhidmatan Teras",
+                nav_about: "Tentang Kami",
+                nav_contact: "Hubungi Kami",
+                select_language: "Pilih Bahasa",
+                hero_title_prefix: "Terokai",
+                hero_title_highlight: "Keindahan Mutlak",
+                hero_title_suffix: "Malaysia",
+                hero_subtitle: "Perkhidmatan pelancongan tersuai premium yang disesuaikan untuk pelawat, memastikan pengalaman tanpa bimbang dari ketibaan hingga pelepasan.",
+                hero_cta_primary: "Sesuaikan Sekarang",
+                hero_cta_secondary: "Perkhidmatan Kami",
+                feature_1_title: "Tiada Halangan Bahasa",
+                feature_1_desc: "Pemandu pelancong profesional pelbagai bahasa dan pasukan perkhidmatan untuk menghapuskan halangan komunikasi.",
+                feature_2_title: "Penyesuaian Premium",
+                feature_2_desc: "Dari perjalanan keluarga hingga lawatan perniagaan, kami mencipta jadual perjalanan unik khusus untuk anda.",
+                feature_3_title: "Perjalanan Tanpa Bimbang",
+                feature_3_desc: "Kitaran perkhidmatan sehenti dari pengambilan lapangan terbang hingga daftar masuk hotel, memastikan keselamatan dan keselesaan.",
+                services_title: "Bidang Perniagaan Teras",
+                services_subtitle: "Kami menyediakan pakej pelancongan komprehensif untuk memenuhi semua imaginasi anda tentang perjalanan berkualiti tinggi.",
+                service_1_title: "Penyesuaian Pelancongan Premium",
+                service_1_desc: "Meliputi perjalanan keluarga, bulan madu, dan pengalaman budaya mendalam dengan pengaturan fleksibel.",
+                service_1_point_1: "Perjalanan Keluarga",
+                service_1_point_2: "Percutian Bulan Madu",
+                service_1_point_3: "Pengalaman Budaya",
+                service_2_title: "Perkhidmatan Kereta & Ulang-alik",
+                service_2_desc: "Meliputi lapangan terbang utama di Malaysia, pemandu profesional, kenderaan selesa, tepat masa dan selamat.",
+                service_2_point_1: "Pemandu Profesional",
+                service_2_point_2: "Selamat & Selesa",
+                service_2_point_3: "Perkhidmatan Tepat Masa",
+                service_3_title: "Pemandu Pelancong & Pengiring",
+                service_3_desc: "Pemandu pelancong tempatan profesional menyediakan penerangan sejarah dan budaya mendalam serta perkhidmatan pengiring yang prihatin.",
+                service_3_point_1: "Pemandu Pelancong Profesional",
+                service_3_point_2: "Wawasan Sejarah",
+                service_3_point_3: "Pengiring Prihatin",
+                service_4_title: "Perkhidmatan Korporat & Kumpulan",
+                service_4_desc: "Menerima delegasi korporat, lawatan perniagaan, dan kumpulan kecil mewah dengan penyelesaian penerimaan sehenti.",
+                service_4_point_1: "Lawatan Perniagaan",
+                service_4_point_2: "Pembangunan Pasukan",
+                service_4_point_3: "Perkhidmatan Sehenti",
+                about_title: "Tentang JourneyHub",
+                about_desc_1: "Beribu pejabat di Kuala Lumpur, Malaysia, JourneyHub adalah agensi profesional yang berdedikasi untuk menyediakan perkhidmatan pelancongan tersuai mewah. Kami memahami tabiat perjalanan dan keperluan perkhidmatan pelawat, berusaha menyelesaikan halangan bahasa dan cabaran koordinasi jadual.",
+                about_desc_2: "Pasukan kami terdiri daripada pakar tempatan yang berpengalaman, berusaha untuk kesempurnaan dalam setiap aspek dari perancangan produk hingga khidmat pelanggan. Melalui platform media sosial seperti TikTok dan Xiaohongshu, kami berhubung terus dengan pelanggan untuk mempamerkan kes perjalanan autentik dan pengalaman tempatan Malaysia.",
+                about_hq: "Lokasi HQ",
+                about_hq_val: "Pusat Bandar KL",
+                about_promise: "Janji Perkhidmatan",
+                about_promise_val: "Sokongan 24/7",
+                cta_title: "Bersedia untuk Memulakan Perjalanan Malaysia Anda?",
+                cta_desc: "Biarkan kami merancang perjalanan tersuai mewah yang tidak dapat dilupakan untuk anda mengalami pesona Nanyang yang unik.",
+                cta_button: "Hubungi Kami Sekarang",
+                contact_title: "Hubungi Kami",
+                contact_subtitle: "Sama ada anda mempunyai sebarang soalan atau keperluan, sila hubungi kami.",
+                contact_info_title: "Maklumat Perhubungan",
+                contact_address_label: "Alamat",
+                contact_phone_label: "Telefon",
+                contact_email_label: "Emel",
+                contact_social_label: "Ikuti Kami",
+                form_name_label: "Nama Anda",
+                form_contact_label: "Emel / WeChat",
+                form_message_label: "Mesej",
+                form_submit: "Hantar Pertanyaan",
+                footer_desc: "Pakar penyesuaian pelancongan mewah Malaysia anda. Kami berdedikasi untuk menyediakan pengalaman perjalanan yang selamat, selesa, dan tidak dapat dilupakan.",
+                footer_links: "Pautan Pantas",
+                footer_business: "Skop Perniagaan",
+                footer_biz_1: "Penyesuaian Premium",
+                footer_biz_2: "Pemindahan Lapangan Terbang",
+                footer_biz_3: "Lawatan Perniagaan",
+                footer_biz_4: "Pengiring Pemandu Pelancong"
+            },
+            zh: {
+                nav_home: "首页",
+                nav_services: "核心业务",
+                nav_about: "关于我们",
+                nav_contact: "联系我们",
+                select_language: "选择语言",
+                hero_title_prefix: "探索马来西亚的",
+                hero_title_highlight: "极致之美",
+                hero_title_suffix: "  ",
+                hero_subtitle: "专为中国游客打造的高端定制旅游服务，从抵达到离开的全程无忧体验。",
+                hero_cta_primary: "立即定制行程",
+                hero_cta_secondary: "了解我们的服务",
+                feature_1_title: "语言无障碍",
+                feature_1_desc: "专业中文导游与服务团队，消除语言隔阂，让沟通零距离。",
+                feature_2_title: "高端定制",
+                feature_2_desc: "从家庭出游到商务考察，为您量身打造独一无二的专属行程。",
+                feature_3_title: "全程无忧",
+                feature_3_desc: "一站式服务闭环，从机场接送到酒店入住，安全舒适有保障。",
+                services_title: "核心业务领域",
+                services_subtitle: "我们提供全方位的旅游配套服务，满足您对高品质旅行的所有想象。",
+                service_1_title: "高端旅游定制",
+                service_1_desc: "涵盖家庭游、蜜月度假及深度文化体验，灵活安排，随心而行。",
+                service_1_point_1: "家庭亲子游",
+                service_1_point_2: "蜜月度假",
+                service_1_point_3: "深度文化体验",
+                service_2_title: "机场接送与用车",
+                service_2_desc: "覆盖马来西亚主要机场，专职司机，舒适车型，准点安全。",
+                service_2_point_1: "全职专业司机",
+                service_2_point_2: "安全舒适座驾",
+                service_2_point_3: "准点接送服务",
+                service_3_title: "景点导游与陪同",
+                service_3_desc: "本地专业中文导游，深度讲解历史文化，提供贴心陪同服务。",
+                service_3_point_1: "专业中文导游",
+                service_3_point_2: "深度历史讲解",
+                service_3_point_3: "全程贴心陪同",
+                service_4_title: "企业与团体定制",
+                service_4_desc: "承接企业代表团、商务考察及小型高端团队，提供一站式接待方案。",
+                service_4_point_1: "商务考察接待",
+                service_4_point_2: "企业团建策划",
+                service_4_point_3: "一站式会务",
+                about_title: "关于 JourneyHub",
+                about_desc_1: "JourneyHub 总部位于马来西亚吉隆坡，是一家专注于为中国游客提供高端定制旅游服务的专业机构。我们深知中国游客的出行习惯与服务需求，致力于解决海外旅行中的语言障碍和行程协调难题。",
+                about_desc_2: "我们的团队由经验丰富的本地专家组成，从产品规划到客户服务，每一个环节都力求完美。通过 TikTok 和小红书等社交媒体，我们与客户建立直接连接，展示真实的旅行案例和地道的马来西亚风情。",
+                about_hq: "总部位置",
+                about_hq_val: "吉隆坡核心商业区",
+                about_promise: "服务承诺",
+                about_promise_val: "24/7 专属客服支持",
+                cta_title: "准备好开始您的马来西亚之旅了吗？",
+                cta_desc: "让我们为您规划一次难忘的高端定制旅行，体验不一样的南洋风情。",
+                cta_button: "立即联系我们",
+                contact_title: "联系我们",
+                contact_subtitle: "无论您有任何疑问或需求，请随时与我们联系。",
+                contact_info_title: "联系方式",
+                contact_address_label: "公司地址",
+                contact_phone_label: "联系电话",
+                contact_email_label: "电子邮箱",
+                contact_social_label: "关注我们",
+                form_name_label: "您的姓名",
+                form_contact_label: "联系邮箱/微信",
+                form_message_label: "咨询内容",
+                form_submit: "发送咨询",
+                footer_desc: "您的马来西亚高端旅游定制专家。我们致力于为您提供安全、舒适、难忘的旅行体验。",
+                footer_links: "快速链接",
+                footer_business: "业务范围",
+                footer_biz_1: "高端定制游",
+                footer_biz_2: "机场接送",
+                footer_biz_3: "商务考察",
+                footer_biz_4: "导游陪同"
+            }
+        };
+
+        const langFlags = {
+                'en': 'fi fi-us',
+                'ms': 'fi fi-my',
+                'zh': 'fi fi-cn'
+            };
+
+        // Mobile menu toggle
+        const btn = document.getElementById('mobile-menu-btn');
+        const menu = document.getElementById('mobile-menu');
+
+        btn.addEventListener('click', () => {
+            menu.classList.toggle('hidden');
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                e.preventDefault();
+                menu.classList.add('hidden'); // Close mobile menu on click
+                document.querySelector(targetId).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Language Switcher Logic
+        function changeLanguage(lang) {
+            // Update HTML lang attribute
+            document.documentElement.lang = lang;
+            
+            // Update current language icon
+            const iconEl = document.getElementById('current-lang-icon');
+            if (iconEl) {
+                iconEl.className = 'fi text-xl ' + langFlags[lang];
+            }
+
+            // Update all elements with data-i18n attribute
+            document.querySelectorAll('[data-i18n]').forEach(element => {
+                const key = element.getAttribute('data-i18n');
+                if (translations[lang] && translations[lang][key]) {
+                    element.textContent = translations[lang][key];
+                }
+            });
+
+            // Update placeholders for inputs
+            const nameInput = document.getElementById('name');
+            const emailInput = document.getElementById('email');
+            const messageInput = document.getElementById('message');
+
+            if (lang === 'en') {
+                nameInput.placeholder = "Enter your name";
+                emailInput.placeholder = "Enter your email or WeChat ID";
+                messageInput.placeholder = "Tell us about your travel plans...";
+            } else if (lang === 'ms') {
+                nameInput.placeholder = "Masukkan nama anda";
+                emailInput.placeholder = "Masukkan emel atau ID WeChat";
+                messageInput.placeholder = "Beritahu kami tentang rancangan perjalanan anda...";
+            } else if (lang === 'zh') {
+                nameInput.placeholder = "请输入您的姓名";
+                emailInput.placeholder = "请输入您的邮箱或微信号";
+                messageInput.placeholder = "请告诉我们您的旅行计划...";
+            }
+
+            // Save preference
+            localStorage.setItem('preferredLanguage', lang);
+        }
+
+        // Initialize language
+        document.addEventListener('DOMContentLoaded', () => {
+            const savedLang = localStorage.getItem('preferredLanguage');
+            const defaultLang = 'en'; // English as default
+            changeLanguage(savedLang || defaultLang);
+        });
+    </script>
+</body>
+</html>
